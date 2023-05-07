@@ -22,6 +22,7 @@ import java.util.List;
 
 public final class MinecraftHologramComposer {
 
+    // Create a new Arraylist for the ArmorStands which get added and removed by creating/deleting
     private final List<ArmorStand> armorStands = new ArrayList<>();
 
     public void createHologram(final Location location, final String... lines) {
@@ -88,10 +89,19 @@ public final class MinecraftHologramComposer {
 
     // Start moving the armorstand randomly
     public void moveRandomly(final ArmorStand armorStand, final double distance) {
-        Location location = armorStand.getLocation();
-        double x = location.getX() + (Math.random() * distance * 2 - distance);
-        double y = location.getY() + (Math.random() * distance * 2 - distance);
-        double z = location.getZ() + (Math.random() * distance * 2 - distance);
+
+        // Set the location
+        final Location location = armorStand.getLocation();
+
+        // Set the double x
+        final double x = location.getX() + (Math.random() * distance * 2 - distance);
+
+        // Set the double y
+        final double y = location.getY() + (Math.random() * distance * 2 - distance);
+
+        // Set the double z
+        final double z = location.getZ() + (Math.random() * distance * 2 - distance);
+
         armorStand.teleport(new Location(location.getWorld(), x, y, z));
     }
 
@@ -102,23 +112,27 @@ public final class MinecraftHologramComposer {
         location.getWorld().createExplosion(location, 2, false, false);
     }
 
+
     // Start spinning the armorstand
     public void spin(final ArmorStand armorStand) {
         new BukkitRunnable() {
+            // Initialize the count integer
             int count = 0;
 
             @Override
             public void run() {
                 final Location location = armorStand.getLocation();
+                // Set the yaw
                 location.setYaw(location.getYaw() + 10);
+                // Teleport the armorstand
                 armorStand.teleport(location);
-                if (++count == 36) {
+                // If the count is >= 36 cancel the spinning
+                if (++count >= 36) {
                     this.cancel();
                 }
             }
         }.runTaskTimer(HoloLinesPlugin.getINSTANCE(), 0, 2);
     }
-
 
     // Deletes the hologram
     public void deleteHologram(final ArmorStand armorStand) {
@@ -130,21 +144,41 @@ public final class MinecraftHologramComposer {
 
     // Set the rainbow text to the hologram
     public void rainbowText(final String... lines) {
-        List<Color> colors = new ArrayList<>();
+        final List<Color> colors = new ArrayList<>();
+
+        // Add {Color.RED}
         colors.add(Color.RED);
+
+        // Add {Color.ORANGE}
         colors.add(Color.ORANGE);
+
+        // Add {Color.YELLOW}
         colors.add(Color.YELLOW);
+
+        // Add {Color.GREEN}
         colors.add(Color.GREEN);
+
+        // Add {Color.BLUE}
         colors.add(Color.BLUE);
+
+        // Add {Color.PURPLE}
         colors.add(Color.PURPLE);
 
         int i = 0;
         for (String line : lines) {
-            Color color = colors.get(i % colors.size());
-            ArmorStand armorStand = armorStands.get(i);
+            final Color color = colors.get(i % colors.size());
+            final ArmorStand armorStand = armorStands.get(i);
+
+            // Set the custom name visible to true
             armorStand.setCustomNameVisible(true);
+
+            // Set the custom name to {line}
             armorStand.setCustomName(line);
+
+            // Set the glowing boolean to true
             armorStand.setGlowing(true);
+
+            // Count the int + 1
             i++;
         }
     }

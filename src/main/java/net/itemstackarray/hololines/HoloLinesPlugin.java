@@ -16,11 +16,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HoloLinesPlugin extends JavaPlugin {
 
+    // Set the instance
     @Getter
     private static HoloLinesPlugin INSTANCE;
 
     @Override
     public void onEnable() {
+        // Initialize the instance
         INSTANCE = this;
     }
 }
