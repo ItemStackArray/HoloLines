@@ -25,6 +25,7 @@ public final class MinecraftHologramComposer {
     // Create a new Arraylist for the ArmorStands which get added and removed by creating/deleting
     private final List<ArmorStand> armorStands = new ArrayList<>();
 
+    // Creates the hologram
     public void createHologram(final Location location, final String... lines) {
         final Vector vector = new Vector(0, 0.25, 0);
 
