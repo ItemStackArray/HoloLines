@@ -119,6 +119,8 @@ public final class MinecraftHologramComposer {
         }.runTaskTimer(HoloLinesPlugin.getINSTANCE(), 0, 2);
     }
 
+
+    // Deletes the hologram
     public void deleteHologram(final ArmorStand armorStand) {
         if (armorStands.contains(armorStand)) {
             armorStand.remove();
@@ -126,6 +128,7 @@ public final class MinecraftHologramComposer {
         }
     }
 
+    // Set the rainbow text to the hologram
     public void rainbowText(final String... lines) {
         List<Color> colors = new ArrayList<>();
         colors.add(Color.RED);
@@ -143,6 +146,22 @@ public final class MinecraftHologramComposer {
             armorStand.setCustomName(line);
             armorStand.setGlowing(true);
             i++;
+        }
+    }
+
+    /**
+     *
+     * @param armorStand
+     * @return if the armorstand has a rainbow text
+     */
+    public boolean hasRainbowText(final ArmorStand armorStand) {
+        return armorStand.isCustomNameVisible() && armorStand.isGlowing();
+    }
+
+    // Deletes all the rainbow texts if the armorstand has one
+    public void deleteAllRainbowTexts() {
+        for (final ArmorStand armorStand : this.armorStands) {
+            if (this.hasRainbowText(armorStand)) this.rainbowText(null);
         }
     }
 
